@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O' Burger de la Presqu'île — Brasserie-burger sur le port de Saint-Mandrier-sur-Mer</title>
+<meta name="description" content="Face à la baie de Toulon, sur le port de Saint-Mandrier : burgers élaborés avec des produits frais, buns du boulanger, frites maison, terrasse au bord du quai. 4,8/5 sur Google avec plus de 700 avis.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🍔%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ VARIABLES & RESET ============ */
+:root{
+  --charbon:#211A13;
+  --charbon-90:rgba(33,26,19,.9);
+  --charbon-70:rgba(33,26,19,.7);
+  --charbon-45:rgba(33,26,19,.45);
+  --cheddar:#E8A33D;
+  --brique:#B3402A;
+  --creme:#FAF3E7;
+  --brun:#4A2E1D;
+  --blanc:#FFFFFF;
+  --dore:#C98A3B;
+  --ombre-carte:0 10px 30px rgba(33,26,19,.10);
+  --ombre-carte-hover:0 18px 44px rgba(33,26,19,.18);
+  --radius:18px;
+  --police-titres:'Playfair Display',Georgia,serif;
+  --police-texte:'Poppins',Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--police-texte);
+  background:var(--creme);
+  color:var(--brun);
+  line-height:1.65;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+h1,h2,h3{font-family:var(--police-titres);color:var(--charbon);line-height:1.15}
+::selection{background:var(--cheddar);color:var(--charbon)}
+
+/* ============ BOUTONS ============ */
+.btn{
+  display:inline-flex;align-items:center;gap:.55rem;
+  padding:.95rem 1.9rem;border-radius:999px;
+  font-family:var(--police-texte);font-weight:600;font-size:.98rem;
+  letter-spacing:.02em;cursor:pointer;border:2px solid transparent;
+  transition:transform .25s ease,box-shadow .25s ease,background .25s ease,color .25s ease;
+}
+.btn-dore{background:var(--dore);color:var(--blanc);box-shadow:0 8px 22px rgba(201,138,59,.38)}
+.btn-dore:hover{background:var(--cheddar);color:var(--charbon);transform:translateY(-3px);box-shadow:0 14px 30px rgba(232,163,61,.45)}
+.btn-creme{background:transparent;color:var(--blanc);border-color:rgba(255,255,255,.75)}
+.btn-creme:hover{background:var(--blanc);color:var(--charbon);transform:translateY(-3px)}
+.btn-brique{background:var(--brique);color:var(--blanc)}
+.btn-brique:hover{background:var(--charbon);transform:translateY(-3px);box-shadow:0 14px 30px rgba(33,26,19,.3)}
+
+/* ============ HEADER FIXE ============ */
+.header{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:.9rem 5vw;
+  display:flex;align-items:center;justify-content:space-between;gap:1.5rem;
+  background:linear-gradient(180deg,rgba(33,26,19,.85),rgba(33,26,19,.35) 80%,transparent);
+  transition:background .35s ease,box-shadow .35s ease,padding .35s ease;
+}
+.header.scrolled{
+  background:var(--charbon-90);
+  box-shadow:0 6px 24px rgba(33,26,19,.35);
+  padding:.6rem 5vw;
+}
+.logo{display:flex;flex-direction:column;line-height:1.05}
+.logo strong{
+  font-family:var(--police-titres);font-size:1.5rem;font-weight:800;
+  color:var(--blanc);letter-spacing:.01em;
+}
+.logo strong em{color:var(--cheddar);font-style:normal}
+.logo span{
+  font-size:.72rem;font-weight:500;letter-spacing:.32em;text-transform:uppercase;
+  color:rgba(250,243,231,.85);
+}
+.nav{display:flex;align-items:center;gap:1.6rem}
+.nav a.nav-lien{
+  color:rgba(250,243,231,.92);font-weight:500;font-size:.92rem;
+  position:relative;padding:.25rem 0;
+}
+.nav a.nav-lien::after{
+  content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;
+  background:var(--cheddar);transition:width .3s ease;
+}
+.nav a.nav-lien:hover::after{width:100%}
+.btn-tel{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--dore);color:var(--blanc);
+  padding:.55rem 1.2rem;border-radius:999px;
+  font-weight:600;font-size:.9rem;white-space:nowrap;
+  transition:background .25s ease,transform .25s ease;
+}
+.btn-tel svg{width:15px;height:15px;flex:none}
+.btn-tel:hover{background:var(--cheddar);color:var(--charbon);transform:translateY(-2px)}
+.menu-toggle{display:none;background:none;border:0;cursor:pointer;padding:.4rem}
+.menu-toggle span{display:block;width:26px;height:3px;border-radius:2px;background:var(--blanc);margin:5px 0;transition:transform .3s ease,opacity .3s ease}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative;min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;
+  background:
+    linear-gradient(180deg,rgba(33,26,19,.42) 0%,rgba(33,26,19,.18) 40%,rgba(33,26,19,.62) 74%,rgba(33,26,19,.92) 100%),
+    url("https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=1920&q=80") center 62%/cover no-repeat var(--charbon);
+}
+.hero-contenu{
+  position:relative;z-index:2;
+  max-width:880px;padding:9.5rem 6vw 7rem;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:var(--charbon-70);border:1px solid rgba(232,163,61,.55);
+  color:var(--cheddar);border-radius:999px;
+  padding:.5rem 1.3rem;font-size:.8rem;font-weight:600;
+  letter-spacing:.22em;text-transform:uppercase;
+  backdrop-filter:blur(4px);margin-bottom:1.6rem;
+}
+.hero h1{
+  color:var(--blanc);font-size:clamp(2.4rem,5.6vw,4.3rem);font-weight:800;
+  text-shadow:0 3px 26px rgba(33,26,19,.75);margin-bottom:1.2rem;
+}
+.hero h1 em{font-style:italic;color:var(--cheddar)}
+.hero p{
+  color:rgba(250,243,231,.94);font-size:clamp(1rem,1.6vw,1.18rem);
+  max-width:640px;margin:0 auto 1.6rem;
+  text-shadow:0 2px 14px rgba(33,26,19,.8);
+}
+.hero-note-avis{
+  display:inline-flex;align-items:center;gap:.55rem;
+  background:var(--charbon-70);color:var(--blanc);
+  border-radius:999px;padding:.55rem 1.25rem;
+  font-size:.92rem;font-weight:500;margin-bottom:2.2rem;
+  backdrop-filter:blur(4px);
+}
+.etoiles{color:var(--cheddar);letter-spacing:.15em;font-size:1rem}
+.hero-boutons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.hero-scroll{
+  position:absolute;left:50%;bottom:2rem;transform:translateX(-50%);z-index:2;
+  color:rgba(250,243,231,.8);font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+}
+.hero-scroll::after{
+  content:"";width:1px;height:44px;
+  background:linear-gradient(180deg,var(--cheddar),transparent);
+  animation:descente 2.2s ease-in-out infinite;
+}
+@keyframes descente{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+/* ============ BANDEAU CHIFFRES CLÉS ============ */
+.chiffres{
+  background:var(--charbon);
+  border-top:3px solid var(--cheddar);
+  padding:2.4rem 5vw;
+  display:flex;justify-content:center;gap:4vw;flex-wrap:wrap;
+}
+.chiffre{display:flex;flex-direction:column;align-items:center;text-align:center;min-width:150px}
+.chiffre .valeur{
+  font-family:var(--police-titres);font-size:2.1rem;font-weight:800;
+  color:var(--cheddar);line-height:1.1;
+}
+.chiffre .libelle{
+  color:rgba(250,243,231,.85);font-size:.85rem;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;margin-top:.3rem;
+}
+
+/* ============ SECTIONS GÉNÉRIQUES ============ */
+.section{padding:5.5rem 5vw}
+.conteneur{max-width:1180px;margin:0 auto}
+.section-tete{text-align:center;max-width:720px;margin:0 auto 3.2rem}
+.kicker{
+  display:inline-block;color:var(--brique);font-weight:700;
+  font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;
+  margin-bottom:.8rem;position:relative;padding-left:2.6rem;
+}
+.kicker::before{
+  content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:1.8rem;height:2px;background:var(--dore);
+}
+.section-tete h2{font-size:clamp(1.9rem,3.6vw,2.7rem);font-weight:800;margin-bottom:.9rem}
+.section-tete h2 em{font-style:italic;color:var(--dore)}
+.section-tete p{color:var(--brun);opacity:.88}
+
+/* ============ SECTION BURGERS ============ */
+.burgers{background:var(--creme)}
+.grille-plats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;
+}
+.plat-carte{
+  background:var(--blanc);border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--ombre-carte);
+  display:flex;flex-direction:column;
+  transition:transform .35s ease,box-shadow .35s ease;
+}
+.plat-carte:hover{transform:translateY(-8px);box-shadow:var(--ombre-carte-hover)}
+.plat-media{position:relative;aspect-ratio:4/3;overflow:hidden}
+.plat-media img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .6s ease;
+}
+.plat-carte:hover .plat-media img{transform:scale(1.07)}
+.plat-prix{
+  position:absolute;top:1rem;right:1rem;
+  background:var(--cheddar);color:var(--charbon);
+  font-weight:700;font-size:.95rem;
+  padding:.35rem .85rem;border-radius:999px;
+  box-shadow:0 6px 16px rgba(33,26,19,.35);
+}
+.plat-tag{
+  position:absolute;left:1rem;bottom:1rem;
+  background:var(--charbon-70);color:var(--blanc);
+  font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  padding:.3rem .8rem;border-radius:999px;backdrop-filter:blur(4px);
+}
+.plat-corps{padding:1.5rem 1.5rem 1.7rem;display:flex;flex-direction:column;gap:.55rem;flex:1}
+.plat-corps h3{font-size:1.28rem;font-weight:800}
+.plat-corps p{font-size:.93rem;color:var(--brun);opacity:.85}
+.plat-pied{
+  margin-top:auto;padding-top:.7rem;
+  display:flex;align-items:center;gap:.5rem;
+  color:var(--dore);font-size:.8rem;font-weight:600;letter-spacing:.06em;
+}
+.plat-pied::before{content:"";width:1.4rem;height:2px;background:var(--cheddar)}
+.plats-note{
+  text-align:center;margin-top:2.4rem;
+  color:var(--brun);opacity:.7;font-size:.88rem;font-style:italic;
+}
+
+/* ============ SECTION À PROPOS ============ */
+.a-propos{background:var(--blanc)}
+.a-propos-grille{
+  display:grid;grid-template-columns:1.05fr .95fr;gap:4rem;align-items:center;
+}
+.a-propos-texte .kicker{margin-bottom:1rem}
+.a-propos-texte h2{font-size:clamp(1.9rem,3.4vw,2.6rem);font-weight:800;margin-bottom:1.3rem}
+.a-propos-texte h2 em{font-style:italic;color:var(--dore)}
+.a-propos-texte p{margin-bottom:1.1rem;color:var(--brun);opacity:.9}
+.a-propos-atouts{
+  margin-top:1.6rem;display:flex;flex-direction:column;gap:.9rem;
+}
+.a-propos-atouts li{
+  display:flex;align-items:flex-start;gap:.8rem;
+  font-weight:500;color:var(--charbon);
+}
+.atout-puce{
+  flex:none;width:26px;height:26px;border-radius:50%;
+  background:var(--cheddar);color:var(--charbon);
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:.85rem;font-weight:700;margin-top:.15rem;
+}
+.a-propos-visuel{position:relative}
+.a-propos-visuelle-principale{
+  border-radius:var(--radius);overflow:hidden;
+  box-shadow:0 24px 60px rgba(33,26,19,.22);
+  aspect-ratio:4/3.4;
+}
+.a-propos-visuelle-principale img{width:100%;height:100%;object-fit:cover}
+.a-propos-vignette{
+  position:absolute;right:-2.2rem;bottom:-2.6rem;width:46%;
+  border-radius:var(--radius);overflow:hidden;
+  border:6px solid var(--blanc);
+  box-shadow:0 18px 44px rgba(33,26,19,.3);
+  aspect-ratio:4/3;
+}
+.a-propos-vignette img{width:100%;height:100%;object-fit:cover}
+.a-propos-legende{
+  position:absolute;left:1.1rem;top:1.1rem;z-index:2;
+  background:var(--charbon-70);color:var(--blanc);
+  font-size:.78rem;font-weight:500;letter-spacing:.06em;
+  padding:.45rem 1rem;border-radius:999px;backdrop-filter:blur(4px);
+}
+.a-propos-citation{
+  margin-top:2.2rem;padding:1.2rem 1.6rem;
+  background:var(--creme);border-left:4px solid var(--cheddar);
+  border-radius:0 var(--radius) var(--radius) 0;
+  font-family:var(--police-titres);font-style:italic;
+  font-size:1.08rem;color:var(--charbon);
+}
+
+/* ============ ANIMATIONS DOUCES (actives seulement si JS présent) ============ */
+html:not(.js) .reveal{opacity:1;transform:none}
+.js .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+.js .reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delai-1{transition-delay:.12s}
+.reveal-delai-2{transition-delay:.24s}
+.reveal-delai-3{transition-delay:.36s}
+@media (prefers-reduced-motion:reduce){
+  .js .reveal{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1024px){
+  .grille-plats{grid-template-columns:repeat(2,1fr)}
+  .a-propos-grille{grid-template-columns:1fr;gap:3.2rem}
+  .a-propos-vignette{right:0;bottom:-2rem}
+}
+@media (max-width:768px){
+  .section{padding:4rem 6vw}
+  .menu-toggle{display:block}
+  .nav{
+    position:fixed;top:0;right:0;height:100vh;width:min(320px,82vw);
+    background:var(--charbon);flex-direction:column;
+    justify-content:flex-start;padding:5.5rem 2.2rem 2rem;gap:1.4rem;
+    transform:translateX(105%);transition:transform .4s ease;
+    box-shadow:-14px 0 40px rgba(0,0,0,.45);
+  }
+  .nav.ouvert{transform:translateX(0)}
+  .nav a.nav-lien{font-size:1.05rem}
+  .header.menu-ouvert .menu-toggle span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+  .header.menu-ouvert .menu-toggle span:nth-child(2){opacity:0}
+  .header.menu-ouvert .menu-toggle span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+  .chiffres{gap:1.6rem 2.4rem;padding:2rem 6vw}
+  .chiffre{min-width:118px}
+  .hero{background-attachment:scroll}
+  .hero-contenu{padding:8rem 6vw 6.5rem}
+  .hero-boutons .btn{width:100%;justify-content:center}
+}
+@media (max-width:480px){
+  .grille-plats{grid-template-columns:1fr}
+  .logo strong{font-size:1.22rem}
+  .logo span{font-size:.6rem;letter-spacing:.24em}
+  .btn-tel .txt-tel{display:none}
+  .btn-tel{padding:.55rem .8rem}
+  .chiffre .valeur{font-size:1.7rem}
+  .a-propos-vignette{position:static;width:74%;margin:-2.4rem 0 0 auto}
+  .hero-note-avis{font-size:.84rem}
+}
+
+/* ============ FOOTER (structure partie 1) ============ */
+.footer{
+  background:var(--charbon);color:rgba(250,243,231,.82);
+  padding:3.2rem 5vw 1.6rem;
+  border-top:3px solid var(--cheddar);
+}
+.footer-grille{
+  max-width:1180px;margin:0 auto 2rem;
+  display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:2.6rem;
+}
+.footer h3{
+  color:var(--blanc);font-family:var(--police-texte);
+  font-size:.95rem;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;margin-bottom:1.1rem;
+}
+.footer-logo strong{
+  font-family:var(--police-titres);font-size:1.45rem;font-weight:800;color:var(--blanc);
+}
+.footer-logo strong em{color:var(--cheddar);font-style:normal}
+.footer p{font-size:.9rem}
+.footer-logo p{margin-top:.8rem;max-width:34ch}
+.footer ul li{margin-bottom:.55rem;font-size:.92rem}
+.footer a.lien-footer{transition:color .25s ease}
+.footer a.lien-footer:hover{color:var(--cheddar)}
+.footer-bas{
+  max-width:1180px;margin:0 auto;
+  padding-top:1.4rem;border-top:1px solid rgba(250,243,231,.16);
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  font-size:.8rem;color:rgba(250,243,231,.6);
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="header" id="haut">
+  <a class="logo" href="#haut" aria-label="O' Burger de la Presqu'île — retour en haut">
+    <strong>O' <em>Burger</em></strong>
+    <span>de la Presqu'île</span>
+  </a>
+  <nav class="nav" id="nav" aria-label="Navigation principale">
+    <a class="nav-lien" href="#burgers">Nos burgers</a>
+    <a class="nav-lien" href="#a-propos">À propos</a>
+    <a class="nav-lien" href="#galerie">Galerie</a>
+    <a class="nav-lien" href="#avis">Avis</a>
+    <a class="nav-lien" href="#infos">Infos pratiques</a>
+    <a class="nav-lien" href="#contact">Contact</a>
+  </nav>
+  <a class="btn-tel" href="tel:+33651337288" aria-label="Appeler O' Burger de la Presqu'île">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    <span class="txt-tel">06 51 33 72 88</span>
+  </a>
+  <button class="menu-toggle" id="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="accueil">
+  <div class="hero-contenu">
+    <span class="hero-badge">Brasserie-burger · sur le port de Saint-Mandrier</span>
+    <h1>Face à la baie de Toulon,<br>le burger a un <em>rendez-vous</em>.</h1>
+    <p>Sur le quai, les pieds presque dans l'eau : des burgers élaborés avec des produits frais de qualité, des buns façonnés par notre boulanger, des frites maison… et une terrasse qui donne directement sur le port.</p>
+    <span class="hero-note-avis"><span class="etoiles">★★★★★</span> 4,8/5 sur Google · plus de 700 avis</span>
+    <div class="hero-boutons">
+      <a class="btn btn-dore" href="#burgers">Découvrir nos burgers</a>
+      <a class="btn btn-creme" href="#contact">Réserver une table</a>
+    </div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">Glisser</div>
+</section>
+
+<!-- ============ CHIFFRES CLÉS ============ -->
+<section class="chiffres" aria-label="O' Burger de la Presqu'île en chiffres">
+  <div class="chiffre">
+    <span class="valeur">4,8/5</span>
+    <span class="libelle">Note Google</span>
+  </div>
+  <div class="chiffre">
+    <span class="valeur">700+</span>
+    <span class="libelle">Avis clients</span>
+  </div>
+  <div class="chiffre">
+    <span class="valeur">100%</span>
+    <span class="libelle">Produits frais</span>
+  </div>
+  <div class="chiffre">
+    <span class="valeur">Maison</span>
+    <span class="libelle">Frites &amp; desserts</span>
+  </div>
+</section>
+
+<!-- ============ NOS BURGERS & RECETTES ============ -->
+<section class="section burgers" id="burgers">
+  <div class="conteneur">
+    <div class="section-tete reveal">
+      <span class="kicker">La carte</span>
+      <h2>Nos burgers &amp; nos <em>recettes</em></h2>
+      <p>Du pain au dessert, tout est pensé en cuisine : viande travaillée à la minute, buns livrés chaque matin par notre boulanger, frites coupées et frites maison. Et pour les amateurs de brasserie, nos classiques grillés sont là aussi.</p>
+    </div>
+    <div class="grille-plats">
+      <article class="plat-carte reveal">
+        <div class="plat-media">
+          <img src="https://images.unsplash.com/photo-1561758033-d89a9ad46330?auto=format&fit=crop&w=800&q=80" alt="Burger signature double steak avec cheddar fondu et frites maison" loading="eager">
+          <span class="plat-prix">16,90&nbsp;€</span>
+          <span class="plat-tag">Signature</span>
+        </div>
+        <div class="plat-corps">
+          <h3>L'O' Signature</h3>
+          <p>Double steak grillé à la commande, cheddar bien fondu, oignons caramélisés, sauce burger maison et bun brioché du boulanger. Le burger qui a fait notre réputation sur le quai.</p>
+          <span class="plat-pied">Pain du boulanger</span>
+        </div>
+      </article>
+      <article class="plat-carte reveal reveal-delai-1">
+        <div class="plat-media">
+          <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=800&q=80" alt="Burger classique avec steak frais, tomate et salade croquante" loading="eager">
+          <span class="plat-prix">14,50&nbsp;€</span>
+          <span class="plat-tag">Le classique du port</span>
+        </div>
+        <div class="plat-corps">
+          <h3>Le Presqu'île</h3>
+          <p>Steak haché frais cuisiné à la minute, tomate, salade croquante, cheddar et notre sauce légère aux herbes. Simple, généreux, exactement ce qu'on attend face à la mer.</p>
+          <span class="plat-pied">Viande à la minute</span>
+        </div>
+      </article>
+      <article class="plat-carte reveal reveal-delai-2">
+        <div class="plat-media">
+          <img src="https://images.unsplash.com/photo-1596662951482-0c4ba74a6df6?auto=format&fit=crop&w=800&q=80" alt="Burger du chef au pain artisanal, création gourmande du moment" loading="eager">
+          <span class="plat-prix">15,90&nbsp;€</span>
+          <span class="plat-tag">Gourmand</span>
+        </div>
+        <div class="plat-corps">
+          <h3>Le Cheddar Fumé</h3>
+          <p>Bacon grillé croustillant, double cheddar coulant, oignons frits et sauce barbecue fumée maison. Pour les grandes faims et les grandes envies.</p>
+          <span class="plat-pied">Sauce maison</span>
+        </div>
+      </article>
+      <article class="plat-carte reveal">
+        <div class="plat-media">
+          <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=800&q=80" alt="Faux filet grillé servi avec frites maison et herbes fraîches" loading="eager">
+          <span class="plat-prix">21,90&nbsp;€</span>
+          <span class="plat-tag">La pièce du jour</span>
+        </div>
+        <div class="plat-corps">
+          <h3>Faux filet &amp; frites maison</h3>
+          <p>Pièce de bœuf grillée selon votre cuisson, servie avec nos frites maison et une sauce au poivre ou au roquefort. Le plat des amoureux de la brasserie.</p>
+          <span class="plat-pied">Grillé à la commande</span>
+        </div>
+      </article>
+      <article class="plat-carte reveal reveal-delai-1">
+        <div class="plat-media">
+          <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=800&q=80" alt="Grillade maison dorée servie avec garniture et frites" loading="eager">
+          <span class="plat-prix">16,50&nbsp;€</span>
+          <span class="plat-tag">Spécialité</span>
+        </div>
+        <div class="plat-corps">
+          <h3>Andouillette de Troyes grillée</h3>
+          <p>La vraie andouillette de Troyes, grillée doucement à la plancha, servie avec frites maison et moutarde à l'ancienne. Une spécialité qui a ses fidèles.</p>
+          <span class="plat-pied">Grillades de la maison</span>
+        </div>
+      </article>
+      <article class="plat-carte reveal reveal-delai-2">
+        <div class="plat-media">
+          <img src="https://images.unsplash.com/photo-1541783245831-57d6fb0926d3?auto=format&fit=crop&w=800&q=80" alt="Tiramisu maison saupoudré de cacao, dessert du jour" loading="eager">
+          <span class="plat-prix">9,50&nbsp;€</span>
+          <span class="plat-tag">Fait maison</span>
+        </div>
+        <div class="plat-corps">
+          <h3>Douceurs maison</h3>
+          <p>Tiramisu maison préparé chaque matin, gourmandises du jour selon l'humeur du chef. La fin de repas qu'on n'ose jamais refuser, face au coucher de soleil.</p>
+          <span class="plat-pied">Préparé chaque matin</span>
+        </div>
+      </article>
+    </div>
+    <p class="plats-note reveal">Prix indicatifs — la carte évolue au fil du marché et des saisons, pour rester fidèle aux produits frais.</p>
+  </div>
+</section>
+
+<!-- ============ À PROPOS ============ -->
+<section class="section a-propos" id="a-propos">
+  <div class="conteneur">
+    <div class="a-propos-grille">
+      <div class="a-propos-texte reveal">
+        <span class="kicker">Notre histoire</span>
+        <h2>Une adresse <em>face au port</em>, une cuisine qui ne triche pas</h2>
+        <p>Tout commence sur le quai Jules Guesde, la terrasse posée au bord de l'eau, face à la baie de Toulon. Ici, les bateaux se balancent à quelques mètres des assiettes et le coucher de soleil fait partie du menu.</p>
+        <p>En cuisine, pas de raccourci : des produits frais sélectionnés avec soin, des buns préparés par notre boulanger et livrés le matin même, des frites coupées puis cuisinées maison, et une viande travaillée à la commande. C'est cette exigence simple qui vaut à la maison ses 4,8/5 et plus de 700 avis Google.</p>
+        <p>Côté salle, une équipe rapide, souriante et attachée à son port : on vous installe, on vous conseille, on revient vous voir. L'ambiance est conviviale, sans chichis — celle d'une vraie brasserie de presqu'île, où l'on revient entre amis, en famille, ou juste pour le tiramisu.</p>
+        <ul class="a-propos-atouts">
+          <li><span class="atout-puce">✓</span>Buns du boulanger, livrés frais chaque matin</li>
+          <li><span class="atout-puce">✓</span>Frites maison et produits frais de qualité</li>
+          <li><span class="atout-puce">✓</span>Terrasse au bord du quai, face à la mer</li>
+          <li><span class="atout-puce">✓</span>Service rapide et souriant, ambiance conviviale</li>
+        </ul>
+        <blockquote class="a-propos-citation">« Le cadre unique de la presqu'île : une terrasse au bord du quai, et le meilleur burger face à la baie. »</blockquote>
+      </div>
+      <div class="a-propos-visuel reveal reveal-delai-1">
+        <figure class="a-propos-visuelle-principale">
+          <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=900&q=80" alt="Terrasse de la brasserie face à la mer au coucher du soleil" loading="eager">
+          <figcaption class="a-propos-legende">La terrasse, face à la baie</figcaption>
+        </figure>
+        <figure class="a-propos-vignette">
+          <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=700&q=80" alt="Salle chaleureuse de la brasserie O' Burger de la Presqu'île" loading="eager">
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ============ PARTIE 2 : suite à coller telle quelle après la fin actuelle d'index.html (après le </section> du bloc À PROPOS) ============ -->
+
+<style>
+/* ============ PARTIE 2 : STYLES COMPLÉMENTAIRES (réutilise les variables de la partie 1) ============ */
+
+/* Bandeau transition charbon */
+.bandeau{
+  background:
+    radial-gradient(1100px 380px at 50% -20%, rgba(232,163,61,.16), transparent 62%),
+    linear-gradient(180deg, var(--charbon) 0%, #2E2417 55%, var(--charbon) 100%);
+  text-align:center;
+  padding:4.8rem 6vw;
+  border-top:3px solid var(--cheddar);
+  border-bottom:3px solid rgba(232,163,61,.25);
+}
+.bandeau-kicker{
+  display:inline-block;color:var(--cheddar);font-weight:600;
+  font-size:.78rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:1rem;
+}
+.bandeau h2{
+  color:var(--blanc);font-size:clamp(1.9rem,4vw,3rem);font-weight:800;
+  text-shadow:0 2px 18px rgba(0,0,0,.4);margin-bottom:1.1rem;
+}
+.bandeau h2 em{font-style:italic;color:var(--cheddar)}
+.bandeau .filet{width:64px;height:3px;background:var(--cheddar);border-radius:2px;margin:0 auto 1.1rem}
+.bandeau p{
+  color:rgba(250,243,231,.88);max-width:58ch;margin:0 auto;
+  font-size:.98rem;text-shadow:0 1px 8px rgba(0,0,0,.5);
+}
+
+/* Galerie */
+.galerie{background:var(--blanc)}
+.galerie-grille{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem}
+.galerie-item{
+  position:relative;margin:0;border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--ombre-carte);aspect-ratio:4/3;background:var(--charbon);
+}
+.galerie-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.galerie-item:hover img{transform:scale(1.08)}
+.galerie-item:hover{box-shadow:var(--ombre-carte-hover)}
+.galerie-legende{
+  position:absolute;left:0;right:0;bottom:0;z-index:2;
+  padding:2.3rem 1.2rem .9rem;
+  background:linear-gradient(180deg,transparent 0%,rgba(33,26,19,.55) 34%,var(--charbon-90) 100%);
+  color:var(--blanc);font-size:.88rem;font-weight:500;letter-spacing:.02em;
+  display:flex;align-items:center;gap:.6rem;
+}
+.galerie-legende::before{content:"";flex:none;width:1.1rem;height:2px;background:var(--cheddar)}
+
+/* Avis */
+.avis{background:var(--creme)}
+.avis-note{
+  display:block;max-width:760px;margin:-1.6rem auto 2.8rem;
+  text-align:center;font-style:italic;font-size:.92rem;color:var(--brun);
+  background:var(--blanc);border:1.5px dashed var(--dore);border-radius:12px;
+  padding:.85rem 1.4rem;box-shadow:var(--ombre-carte);
+}
+.grille-avis{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem}
+.avis-carte{
+  background:var(--blanc);border-radius:var(--radius);
+  padding:1.7rem 1.6rem 1.5rem;box-shadow:var(--ombre-carte);
+  display:flex;flex-direction:column;gap:.75rem;
+  transition:transform .35s ease,box-shadow .35s ease;
+}
+.avis-carte:hover{transform:translateY(-6px);box-shadow:var(--ombre-carte-hover)}
+.avis-carte .etoiles{font-size:1.05rem}
+.avis-texte{font-size:.94rem;color:var(--brun);opacity:.9;flex:1}
+.avis-auteur{
+  font-weight:600;color:var(--charbon);font-size:.9rem;
+  display:flex;align-items:center;gap:.6rem;padding-top:.4rem;
+}
+.avis-auteur::before{content:"";width:1.4rem;height:2px;background:var(--cheddar)}
+.avis-auteur .ville{font-weight:500;opacity:.6}
+
+/* Infos pratiques */
+.infos{background:var(--blanc)}
+.infos-grille{display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:stretch}
+.carte-cadre{
+  position:relative;border-radius:var(--radius);overflow:hidden;
+  box-shadow:0 18px 44px rgba(33,26,19,.18);
+  border:1px solid rgba(33,26,19,.08);min-height:400px;
+}
+.carte-cadre iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.carte-legende{
+  position:absolute;left:0;right:0;bottom:0;z-index:2;
+  padding:2.5rem 1.3rem 1rem;
+  background:linear-gradient(180deg,transparent 0%,rgba(33,26,19,.6) 36%,var(--charbon-90) 100%);
+  color:var(--blanc);font-size:.92rem;
+}
+.carte-legende strong{color:var(--blanc)}
+.carte-legende .sous-legende{font-size:.82rem;opacity:.85}
+.bloc-infos{display:flex;flex-direction:column;gap:1.15rem;justify-content:center}
+.info-ligne{
+  display:flex;gap:1rem;align-items:flex-start;
+  background:var(--creme);border:1px solid rgba(74,46,29,.08);
+  border-left:4px solid var(--cheddar);border-radius:14px;
+  padding:1.1rem 1.3rem;
+}
+.info-icone{
+  flex:none;width:42px;height:42px;border-radius:50%;
+  background:var(--charbon);color:var(--cheddar);
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.info-icone svg{width:20px;height:20px}
+.info-ligne h3{
+  font-family:var(--police-texte);font-size:.78rem;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--brique);margin-bottom:.25rem;
+}
+.info-ligne p{font-size:.94rem;color:var(--brun)}
+.info-ligne a{
+  font-weight:700;color:var(--charbon);
+  border-bottom:2px solid var(--cheddar);transition:color .25s ease;
+}
+.info-ligne a:hover{color:var(--brique)}
+
+/* Contact */
+.contact{background:var(--creme)}
+.contact-grille{display:grid;grid-template-columns:.9fr 1.1fr;gap:3.4rem;align-items:center}
+.contact-intro h2{font-size:clamp(1.8rem,3.2vw,2.5rem);font-weight:800;margin-bottom:1rem}
+.contact-intro h2 em{font-style:italic;color:var(--dore)}
+.contact-intro p{color:var(--brun);opacity:.9;margin-bottom:1.6rem}
+.contact-tel-gros{
+  display:inline-flex;align-items:center;gap:.8rem;
+  background:var(--charbon);color:var(--blanc);
+  padding:1rem 1.7rem;border-radius:999px;
+  font-weight:700;font-size:1.12rem;white-space:nowrap;
+  box-shadow:0 12px 30px rgba(33,26,19,.25);
+  transition:transform .25s ease,background .25s ease;
+}
+.contact-tel-gros svg{width:20px;height:20px;color:var(--cheddar)}
+.contact-tel-gros:hover{background:var(--brique);transform:translateY(-3px)}
+.contact-note{margin-top:1.1rem;font-size:.82rem;font-style:italic;color:var(--brun);opacity:.65}
+.contact-card{
+  background:var(--blanc);border-radius:var(--radius);
+  border-top:4px solid var(--cheddar);box-shadow:var(--ombre-carte-hover);
+  padding:2.2rem;display:flex;flex-direction:column;gap:1.1rem;
+}
+.champ{display:flex;flex-direction:column;gap:.35rem}
+.champ label{
+  font-size:.8rem;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--brun);
+}
+.champ input,.champ textarea{
+  font-family:var(--police-texte);font-size:.98rem;color:var(--charbon);
+  background:var(--creme);border:1.5px solid rgba(74,46,29,.18);
+  border-radius:12px;padding:.85rem 1rem;
+  transition:border-color .25s ease,box-shadow .25s ease;
+}
+.champ input:focus,.champ textarea:focus{
+  outline:none;border-color:var(--dore);
+  box-shadow:0 0 0 3px rgba(232,163,61,.22);
+}
+.champ textarea{min-height:130px;resize:vertical}
+.contact-card .btn{width:100%;justify-content:center}
+.champ-note{
+  font-size:.78rem;font-style:italic;text-align:center;
+  color:var(--brun);opacity:.6;
+}
+
+/* Responsive partie 2 */
+@media (max-width:1024px){
+  .galerie-grille{grid-template-columns:repeat(2,1fr)}
+  .grille-avis{grid-template-columns:repeat(2,1fr)}
+  .infos-grille{grid-template-columns:1fr;gap:2.4rem}
+  .carte-cadre{min-height:340px}
+  .contact-grille{grid-template-columns:1fr;gap:2.6rem}
+}
+@media (max-width:640px){
+  .galerie-grille{grid-template-columns:1fr}
+  .grille-avis{grid-template-columns:1fr}
+  .bandeau{padding:3.6rem 6vw}
+  .contact-card{padding:1.6rem 1.3rem}
+  .contact-tel-gros{font-size:1rem;padding:.9rem 1.3rem}
+}
+</style>
+
+<!-- ============ BANDEAU TRANSITION CHARBON ============ -->
+<section class="bandeau" aria-label="Une adresse gourmande face à la mer">
+  <span class="bandeau-kicker">Sur le port de Saint-Mandrier-sur-Mer</span>
+  <h2>Une adresse <em>gourmande</em> face à la mer</h2>
+  <div class="filet" aria-hidden="true"></div>
+  <p>Burgers élaborés, grillades, frites maison et desserts du jour — servis au bord du quai, les bateaux pour seul horizon.</p>
+</section>
+
+<!-- ============ GALERIE ============ -->
+<section class="section galerie" id="galerie">
+  <div class="conteneur">
+    <div class="section-tete reveal">
+      <span class="kicker">En images</span>
+      <h2>La <em>galerie</em></h2>
+      <p>Un aperçu de ce qui vous attend sur le quai : des assiettes généreuses, des frites maison dorées et la terrasse face à la baie.</p>
+    </div>
+    <div class="galerie-grille">
+      <figure class="galerie-item reveal">
+        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=80" alt="Burger généreux en gros plan, steaks et fromage fondu" loading="eager">
+        <figcaption class="galerie-legende">L'O' Signature, grillé à la minute</figcaption>
+      </figure>
+      <figure class="galerie-item reveal reveal-delai-1">
+        <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=900&q=80" alt="Frites maison dorées aux herbes dans une corbeille" loading="eager">
+        <figcaption class="galerie-legende">Frites maison, croustillantes et dorées</figcaption>
+      </figure>
+      <figure class="galerie-item reveal reveal-delai-2">
+        <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=900&q=80" alt="Burger servi avec une portion de frites maison" loading="eager">
+        <figcaption class="galerie-legende">Le duo du quai : burger &amp; frites</figcaption>
+      </figure>
+      <figure class="galerie-item reveal">
+        <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=900&q=80" alt="Terrasse en pierre face à la mer bleue" loading="eager">
+        <figcaption class="galerie-legende">La terrasse, face à la baie de Toulon</figcaption>
+      </figure>
+      <figure class="galerie-item reveal reveal-delai-1">
+        <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=900&q=80" alt="Panna cotta à la fraise servie en verrine" loading="eager">
+        <figcaption class="galerie-legende">Desserts du jour, préparés maison</figcaption>
+      </figure>
+      <figure class="galerie-item reveal reveal-delai-2">
+        <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=900&q=80" alt="Parfait au chocolat et à la crème en verre" loading="eager">
+        <figcaption class="galerie-legende">Parfait chocolat, la gourmandise du chef</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ILS EN PARLENT ============ -->
+<section class="section avis" id="avis">
+  <div class="conteneur">
+    <div class="section-tete reveal">
+      <span class="kicker">Avis clients</span>
+      <h2>Ils en <em>parlent</em></h2>
+      <p>La parole aux gourmands : ce qu'ils aiment sur le quai, entre deux vagues.</p>
+    </div>
+    <p class="avis-note reveal">Avis d'exemple à remplacer par vos vrais avis Google (4,8/5, 700+ avis)</p>
+    <div class="grille-avis">
+      <article class="avis-carte reveal">
+        <span class="etoiles" aria-label="5 étoiles sur 5">★★★★★</span>
+        <p class="avis-texte">« Le meilleur burger de la rade, sans hésiter. Viande cuite à la minute, bun tiède du boulanger et des frites maison qui n'ont rien à voir avec du surgelé. On a adoré, on reviendra. »</p>
+        <p class="avis-auteur">Julien <span class="ville">— Toulon</span></p>
+      </article>
+      <article class="avis-carte reveal reveal-delai-1">
+        <span class="etoiles" aria-label="5 étoiles sur 5">★★★★★</span>
+        <p class="avis-texte">« Terrasse les pieds presque dans l'eau, service ultra souriant et un burger généreux cuit comme demandé. La vue sur le port au coucher du soleil, c'est le petit plus qui change tout. »</p>
+        <p class="avis-auteur">Sandrine <span class="ville">— La Seyne-sur-Mer</span></p>
+      </article>
+      <article class="avis-carte reveal reveal-delai-2">
+        <span class="etoiles" aria-label="5 étoiles sur 5">★★★★★</span>
+        <p class="avis-texte">« J'ai pris le faux filet avec les frites maison : cuisson parfaite, assiette copieuse, addition raisonnable. Une vraie brasserie comme on les aime, en bord de quai. »</p>
+        <p class="avis-auteur">Marc <span class="ville">— Ollioules</span></p>
+      </article>
+      <article class="avis-carte reveal">
+        <span class="etoiles" aria-label="5 étoiles sur 5">★★★★★</span>
+        <p class="avis-texte">« Venue en famille, les enfants ont fini leur burger jusqu'à la dernière miette. Accueil chaleureux, service rapide même le soir, et le tiramisu maison vaut vraiment le détour. »</p>
+        <p class="avis-auteur">Élodie <span class="ville">— Saint-Mandrier</span></p>
+      </article>
+      <article class="avis-carte reveal reveal-delai-1">
+        <span class="etoiles" aria-label="5 étoiles sur 5">★★★★★</span>
+        <p class="avis-texte">« Cadre superbe face aux bateaux, équipe aux petits soins et desserts maison excellents. Le genre d'adresse qu'on note précieusement pour y retourner dès la prochaine sortie mer. »</p>
+        <p class="avis-auteur">Nicolas <span class="ville">— Hyères</span></p>
+      </article>
+      <article class="avis-carte reveal reveal-delai-2">
+        <span class="etoiles" aria-label="5 étoiles sur 5">★★★★★</span>
+        <p class="avis-texte">« Un service impeccable et des frites maison incroyables. Le burger Cheddar Fumé est une tuerie, et la terrasse face au port rend le moment encore meilleur. À tester absolument. »</p>
+        <p class="avis-auteur">Cathy <span class="ville">— Six-Fours-les-Plages</span></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INFOS PRATIQUES ============ -->
+<section class="section infos" id="infos">
+  <div class="conteneur">
+    <div class="section-tete reveal">
+      <span class="kicker">Nous trouver</span>
+      <h2>Infos <em>pratiques</em></h2>
+      <p>Face au port de Saint-Mandrier-sur-Mer, au bord du quai Jules Guesde : on vous accueille les pieds presque dans l'eau.</p>
+    </div>
+    <div class="infos-grille">
+      <div class="carte-cadre reveal">
+        <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=5.91546%2C43.07435%2C5.93146%2C43.08335&amp;layer=mapnik&amp;marker=43.07885%2C5.92346" title="Carte : 21 quai Jules Guesde, 83430 Saint-Mandrier-sur-Mer" loading="eager"></iframe>
+        <div class="carte-legende">
+          <strong>21 quai Jules Guesde, 83430 Saint-Mandrier-sur-Mer</strong>
+          <span class="sous-legende">Face au port, au bord du quai</span>
+        </div>
+      </div>
+      <div class="bloc-infos reveal reveal-delai-1">
+        <div class="info-ligne">
+          <span class="info-icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <div>
+            <h3>Adresse</h3>
+            <p>21 quai Jules Guesde, 83430 Saint-Mandrier-sur-Mer — face au port.<br><a href="https://www.google.com/maps/search/?api=1&amp;query=21+quai+Jules+Guesde+83430+Saint-Mandrier-sur-Mer" target="_blank" rel="noopener">Ouvrir l'itinéraire</a></p>
+          </div>
+        </div>
+        <div class="info-ligne">
+          <span class="info-icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+          <div>
+            <h3>Téléphone</h3>
+            <p><a href="tel:+33651337288">06 51 33 72 88</a> — réservez votre table ou commandez à emporter.</p>
+          </div>
+        </div>
+        <div class="info-ligne">
+          <span class="info-icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span>
+          <div>
+            <h3>Accès</h3>
+            <p>En bord de quai, à quelques pas de la jetée : parking à proximité immédiate et accès facile à pied depuis le port.</p>
+          </div>
+        </div>
+        <div class="info-ligne">
+          <span class="info-icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span>
+          <div>
+            <h3>Sur place &amp; à emporter</h3>
+            <p>Terrasse au bord du quai, vente à emporter et livraison selon la période. Service continu midi et soir en saison (à confirmer).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section contact" id="contact">
+  <div class="conteneur">
+    <div class="contact-grille">
+      <div class="contact-intro reveal">
+        <span class="kicker">Contact</span>
+        <h2>Une table, une envie, <em>un mot ?</em></h2>
+        <p>Le plus simple reste encore le téléphone : on répond vite, et on vous installe face à la mer. Vous pouvez aussi nous laisser un message, on vous rappelle.</p>
+        <a class="contact-tel-gros" href="tel:+33651337288" aria-label="Appeler O' Burger de la Presqu'île">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          06 51 33 72 88
+        </a>
+        <p class="contact-note">Maquette : ce formulaire est une démonstration, il sera activé sur le site final.</p>
+      </div>
+      <form class="contact-card reveal reveal-delai-1" action="#" method="post">
+        <div class="champ">
+          <label for="nom">Votre nom</label>
+          <input type="text" id="nom" name="nom" autocomplete="name" placeholder="Ex. Marie Dupont" required>
+        </div>
+        <div class="champ">
+          <label for="telephone">Votre téléphone</label>
+          <input type="tel" id="telephone" name="telephone" autocomplete="tel" placeholder="Ex. 06 12 34 56 78" required>
+        </div>
+        <div class="champ">
+          <label for="message">Votre message</label>
+          <textarea id="message" name="message" placeholder="Une réservation, une question, une envie de burger…" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-dore">Envoyer</button>
+        <p class="champ-note">Formulaire de démonstration — aucune donnée n'est envoyée dans cette maquette.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer-grille">
+    <div class="footer-logo">
+      <strong>O' <em>Burger</em></strong>
+      <p>Brasserie-burger sur le port de Saint-Mandrier-sur-Mer : burgers élaborés, frites maison et terrasse face à la baie de Toulon.</p>
+    </div>
+    <div>
+      <h3>Naviguer</h3>
+      <ul>
+        <li><a class="lien-footer" href="#accueil">Accueil</a></li>
+        <li><a class="lien-footer" href="#burgers">Nos burgers</a></li>
+        <li><a class="lien-footer" href="#galerie">Galerie</a></li>
+        <li><a class="lien-footer" href="#avis">Avis</a></li>
+        <li><a class="lien-footer" href="#infos">Infos pratiques</a></li>
+        <li><a class="lien-footer" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <ul>
+        <li><a class="lien-footer" href="tel:+33651337288">06 51 33 72 88</a></li>
+        <li>21 quai Jules Guesde<br>83430 Saint-Mandrier-sur-Mer</li>
+        <li>Face au port, au bord du quai</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bas">
+    <span>Maquette d'idée — photos d'illustration libres de droits (Unsplash)</span>
+    <span>© 2026 O' Burger de la Presqu'île</span>
+    <span>Site final validé par vous avant toute mise en ligne</span>
+  </div>
+</footer>
+
+<script>
+/* Interactions légères : animations au défilement, menu mobile, header au scroll */
+(function(){
+  document.documentElement.classList.add('js');
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(entrees){
+      entrees.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
+      });
+    },{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+  }else{
+    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('visible');});
+  }
+  var header=document.querySelector('.header');
+  function auScroll(){if(header){header.classList.toggle('scrolled',window.scrollY>60);}}
+  window.addEventListener('scroll',auScroll,{passive:true});auScroll();
+  var toggle=document.getElementById('menu-toggle'),nav=document.getElementById('nav');
+  if(toggle&&nav){
+    toggle.addEventListener('click',function(){
+      var ouvert=nav.classList.toggle('ouvert');
+      toggle.setAttribute('aria-expanded',ouvert?'true':'false');
+      if(header)header.classList.toggle('menu-ouvert',ouvert);
+    });
+    nav.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){
+        nav.classList.remove('ouvert');
+        if(header)header.classList.remove('menu-ouvert');
+        toggle.setAttribute('aria-expanded','false');
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>
